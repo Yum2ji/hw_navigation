@@ -16,7 +16,7 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   void _onTap(int index) {
     setState(() {
@@ -24,45 +24,41 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     });
   }
 
+  Future<void> _showBottomSheet() async {
+    await showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => const WritePage(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 40,
+      body: Stack(
+        children: [
+          Offstage(
+            offstage: _selectedIndex != 0,
+            child: const HomePage(),
           ),
-          child: Column(
-            children: [
-              
-              Stack(
-                children: [
-                  Offstage(
-                    offstage: _selectedIndex != 0,
-                    child: const HomePage(),
-                  ),
-                  Offstage(
-                    offstage: _selectedIndex != 1,
-                    child: const SearchPage(),
-                  ),
-                  Offstage(
-                    offstage: _selectedIndex != 2,
-                    child: const WritePage(),
-                  ),
-                  Offstage(
-                    offstage: _selectedIndex != 3,
-                    child: const AlarmPage(),
-                  ),
-                  Offstage(
-                    offstage: _selectedIndex != 4,
-                    child: const ProfilePage(),
-                  ),
-                ],
-              ),
-            ],
+          Offstage(
+            offstage: _selectedIndex != 1,
+            child: const SearchPage(),
           ),
-        ),
+          Offstage(
+            offstage: _selectedIndex != 2,
+            child: const WritePage(),
+          ),
+          Offstage(
+            offstage: _selectedIndex != 3,
+            child: const AlarmPage(),
+          ),
+          Offstage(
+            offstage: _selectedIndex != 4,
+            child: const ProfilePage(),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.white,
@@ -88,7 +84,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               NavPage(
                 icon: FontAwesomeIcons.penToSquare,
                 isSelected: _selectedIndex == 2,
-                onTap: () => _onTap(2),
+                onTap: _showBottomSheet,
               ),
               NavPage(
                 icon: FontAwesomeIcons.heart,

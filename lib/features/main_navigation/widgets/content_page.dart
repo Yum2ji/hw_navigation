@@ -2,27 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hw_navigation/constants/gaps.dart';
 import 'package:hw_navigation/constants/sizes.dart';
+import 'package:hw_navigation/features/main_navigation/widgets/alert_button.dart';
 import 'package:hw_navigation/features/main_navigation/widgets/image_page_screen.dart';
 
 class ContentPage extends StatefulWidget {
+  bool isWriteMode;
   final String title;
-  final String subtitle;
+
   final String representImage;
-  final String uploadTime;
-  final int replyCnt;
-  final int likeCnt;
-  final List<String> imageUrls;
-  final List<String> friendImageUrls;
-  const ContentPage({
+  //글에서만만 보이는 부분
+  String? subtitle;
+  String? uploadTime;
+  int? replyCnt;
+  int? likeCnt;
+  List<String>? imageUrls;
+  List<String>? friendImageUrls;
+
+  //Writing mode에서만 보이는 부분
+
+  ContentPage({
     super.key,
+    required this.isWriteMode,
     required this.title,
-    required this.subtitle,
     required this.representImage,
-    required this.uploadTime,
-    required this.replyCnt,
-    required this.likeCnt,
-    required this.imageUrls,
-    required this.friendImageUrls,
+    this.subtitle,
+    this.uploadTime,
+    this.replyCnt,
+    this.likeCnt,
+    this.imageUrls,
+    this.friendImageUrls,
   });
 
   @override
@@ -30,6 +38,47 @@ class ContentPage extends StatefulWidget {
 }
 
 class _ContentPageState extends State<ContentPage> {
+  int _lineCount = 1;
+  TextEditingController userInputController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    userInputController.addListener(_updateLineCount);
+  }
+
+  void _onTapAlert() async {
+    await showModalBottomSheet(
+      context: context,
+      builder: (context) => const AlertButton(),
+    );
+  }
+
+  @override
+  void dispose() {
+    userInputController.removeListener(_updateLineCount);
+    userInputController.dispose();
+    super.dispose();
+  }
+
+  void _updateLineCount() {
+    final text = userInputController.text;
+
+    // TextPainter를 사용하여 텍스트의 줄 수 계산
+    final textSpan =
+        TextSpan(text: text, style: const TextStyle(fontSize: Sizes.size20));
+    final textPainter = TextPainter(
+      text: textSpan,
+      textDirection: TextDirection.ltr,
+      textAlign: TextAlign.left,
+    )..layout(maxWidth: MediaQuery.of(context).size.width * 2 / 3);
+
+    final lineCount = (textPainter.height / Sizes.size20).ceil(); // 22는 폰트 크기
+    setState(() {
+      _lineCount = lineCount;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -85,81 +134,117 @@ class _ContentPageState extends State<ContentPage> {
                     ),
                     Gaps.v10,
                     SizedBox(
-                      width: Sizes.size48,
-                      child: Center(
-                        child: Container(
-                          width: 2, // 세로 구분선의 두께
-                          color: Colors.grey.shade300, // 구분선 색상
-                          height: widget.imageUrls.isNotEmpty
-                              ? 220
-                              : 50, // 부모의 높이에 맞게 크기 조정
-                        ),
+                      height: !widget.isWriteMode
+                          ? (widget.imageUrls!.isNotEmpty
+                              ? MediaQuery.of(context).size.height * 0.23
+                              : MediaQuery.of(context).size.height * 0.05)
+                          : (MediaQuery.of(context).size.height *
+                              0.02 *
+                              (_lineCount - 1)),
+                      child: VerticalDivider(
+                        color: Colors.grey.shade300,
+                        width: 1,
+                        thickness: 1,
                       ),
                     ),
                     Gaps.v10,
-                    Container(
-                      width: 60,
-                      height: 60,
-                      decoration: const BoxDecoration(
-                          //color: Colors.red,
-                          ),
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            top: 0,
-                            left: 28,
-                            child: Container(
-                              clipBehavior: Clip.none,
-                              width: 31,
-                              height: 31,
-                              decoration: const BoxDecoration(
-                                  // color: Colors.black,
+                    widget.friendImageUrls == null
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Stack(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.zero,
+                                    clipBehavior: Clip.none,
+                                    width: Sizes.size40,
+                                    height: Sizes.size40,
+                                    child: ClipOval(
+                                      child: Image.network(
+                                        widget.representImage,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
-                              child: ClipOval(
-                                child: Image.network(
-                                  widget.friendImageUrls[0],
-                                  fit: BoxFit.cover,
-                                ),
+                                  Container(
+                                    padding: EdgeInsets.zero,
+                                    clipBehavior: Clip.none,
+                                    width: Sizes.size40,
+                                    height: Sizes.size40,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.withOpacity(0.6),
+                                      borderRadius: BorderRadius.circular(
+                                        15,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
+                            ],
+                          )
+                        : Container(
+                            width: 60,
+                            height: 60,
+                            decoration: const BoxDecoration(
+                                //color: Colors.red,
+                                ),
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  top: 0,
+                                  left: 28,
+                                  child: Container(
+                                    clipBehavior: Clip.none,
+                                    width: 31,
+                                    height: 31,
+                                    decoration: const BoxDecoration(
+                                        // color: Colors.black,
+                                        ),
+                                    child: ClipOval(
+                                      child: Image.network(
+                                        widget.friendImageUrls![0],
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 7,
+                                  left: 0,
+                                  child: Container(
+                                    width: 28,
+                                    height: 28,
+                                    decoration: const BoxDecoration(
+                                        // color: Colors.black,
+                                        ),
+                                    child: ClipOval(
+                                      child: Image.network(
+                                        widget.friendImageUrls![1],
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 28,
+                                  left: 21,
+                                  child: Container(
+                                    width: 25,
+                                    height: 25,
+                                    decoration: const BoxDecoration(
+                                        // color: Colors.black,
+                                        ),
+                                    child: ClipOval(
+                                      child: Image.network(
+                                        widget.friendImageUrls![2],
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Positioned(
-                            top: 7,
-                            left: 0,
-                            child: Container(
-                              width: 28,
-                              height: 28,
-                              decoration: const BoxDecoration(
-                                  // color: Colors.black,
-                                  ),
-                              child: ClipOval(
-                                child: Image.network(
-                                  widget.friendImageUrls[1],
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            top: 28,
-                            left: 21,
-                            child: Container(
-                              width: 25,
-                              height: 25,
-                              decoration: const BoxDecoration(
-                                  // color: Colors.black,
-                                  ),
-                              child: ClipOval(
-                                child: Image.network(
-                                  widget.friendImageUrls[2],
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -168,7 +253,7 @@ class _ContentPageState extends State<ContentPage> {
                 flex: 9,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -178,6 +263,7 @@ class _ContentPageState extends State<ContentPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
                                   widget.title,
@@ -186,91 +272,159 @@ class _ContentPageState extends State<ContentPage> {
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                                Gaps.h7,
-                                const FaIcon(FontAwesomeIcons.solidCircleCheck,
-                                    size: Sizes.size20, color: Colors.blue),
+                                if (!widget.isWriteMode) ...[
+                                  Gaps.h7,
+                                  const FaIcon(
+                                    FontAwesomeIcons.solidCircleCheck,
+                                    size: Sizes.size20,
+                                    color: Colors.blue,
+                                  ),
+                                ]
                               ],
                             ),
-                            Row(
-                              children: [
-                                Text(
-                                  widget.uploadTime,
-                                  style: TextStyle(
-                                    color: Colors.grey.shade500,
-                                    fontSize: Sizes.size16,
+                            if (!widget.isWriteMode) ...[
+                              Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        widget.uploadTime!,
+                                        style: TextStyle(
+                                          color: Colors.grey.shade500,
+                                          fontSize: Sizes.size16,
+                                        ),
+                                      ),
+                                      Gaps.h8,
+                                      GestureDetector(
+                                        onTap: _onTapAlert,
+                                        child: const FaIcon(
+                                          FontAwesomeIcons.ellipsis,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                                Gaps.h8,
-                                const FaIcon(FontAwesomeIcons.ellipsis)
-                              ],
-                            )
+                                  Gaps.v4,
+                                ],
+                              ),
+                            ],
                           ],
                         ),
-                        Gaps.v4,
-                        widget.subtitle.isNotEmpty
-                            ? Text(
-                                widget.subtitle,
-                                style: const TextStyle(
-                                  fontSize: Sizes.size16,
-                                  fontWeight: FontWeight.w500,
+                        if (!widget.isWriteMode &&
+                            widget.subtitle != null &&
+                            widget.subtitle!.isNotEmpty)
+                          Text(
+                            widget.subtitle!,
+                            style: const TextStyle(
+                              fontSize: Sizes.size16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            overflow: TextOverflow.clip,
+                          ),
+                        if (!widget.isWriteMode &&
+                            widget.subtitle!.isEmpty) ...[
+                          Gaps.v20,
+                        ],
+                        if (widget.isWriteMode) ...[
+                          Padding(
+                            padding: EdgeInsets.zero,
+                            child: TextField(
+                              textAlignVertical: TextAlignVertical.top,
+                              autocorrect: false,
+                              maxLines: null,
+                              controller: userInputController,
+                              style: const TextStyle(
+                                fontSize: Sizes.size20,
+                              ),
+                              scrollPadding: EdgeInsets.zero,
+                              cursorWidth: 2,
+                              cursorColor: Colors.blue,
+                              decoration:  InputDecoration(
+                                border: InputBorder.none,
+                                isDense: true,
+                                hintText: "Start a thread...",
+                                hintStyle: TextStyle(
+                                  fontSize: Sizes.size18,
+                                  color: Colors.grey.shade500,
+                                  fontWeight: FontWeight.w400,
                                 ),
-                                overflow: TextOverflow.clip,
-                              )
-                            : Gaps.v20,
-                        if (widget.imageUrls.isNotEmpty)
+                              floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                              ),
+                            ),
+                          ),
+                          Gaps.v10,
+                          Icon(
+                            Icons.attach_file,
+                            size: Sizes.size24,
+                            color: Colors.grey.shade500,
+                          ),
+                        ],
+                        if (widget.imageUrls != null &&
+                            widget.imageUrls!.isNotEmpty)
                           const SizedBox(
                             height: 200,
                           ),
-                        Gaps.v20,
-                        const Row(
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.heart,
-                              size: Sizes.size24,
-                            ),
-                            Gaps.h20,
-                            FaIcon(
-                              FontAwesomeIcons.comment,
-                              size: Sizes.size24,
-                            ),
-                            Gaps.h20,
-                            FaIcon(
-                              FontAwesomeIcons.arrowsRotate,
-                              size: Sizes.size24,
-                            ),
-                            Gaps.h20,
-                            FaIcon(
-                              FontAwesomeIcons.paperPlane,
-                              size: Sizes.size24,
-                            ),
-                          ],
-                        ),
+                        if (!widget.isWriteMode)
+                          const Column(
+                            children: [
+                              Gaps.v20,
+                              Row(
+                                children: [
+                                  FaIcon(
+                                    FontAwesomeIcons.heart,
+                                    size: Sizes.size24,
+                                  ),
+                                  Gaps.h20,
+                                  FaIcon(
+                                    FontAwesomeIcons.comment,
+                                    size: Sizes.size24,
+                                  ),
+                                  Gaps.h20,
+                                  FaIcon(
+                                    FontAwesomeIcons.arrowsRotate,
+                                    size: Sizes.size24,
+                                  ),
+                                  Gaps.h20,
+                                  FaIcon(
+                                    FontAwesomeIcons.paperPlane,
+                                    size: Sizes.size24,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                       ],
                     ),
-                    Gaps.v20,
-                    Text(
-                      "${widget.replyCnt} replies · ${widget.likeCnt} likes",
-                      style: TextStyle(
-                        color: Colors.grey.shade500,
-                        fontSize: Sizes.size18,
+                    if (widget.replyCnt != null || widget.likeCnt != null)
+                      Column(
+                        children: [
+                          Gaps.v20,
+                          Text(
+                            "${widget.replyCnt ?? 0} replies · ${widget.likeCnt ?? 0} likes",
+                            style: TextStyle(
+                              color: Colors.grey.shade500,
+                              fontSize: Sizes.size18,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
                   ],
                 ),
               ),
             ],
           ),
-          Positioned(
-            top: Sizes.size72,
-            child: widget.imageUrls.isNotEmpty
-                ? SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: ImagePageScreen(
-                    imageUrls: widget.imageUrls,
-                  ),
-                )
-                : Container(),
-          )
+          if (!widget.isWriteMode)
+            Positioned(
+              top: Sizes.size72,
+              child: (widget.imageUrls != null && widget.imageUrls!.isNotEmpty)
+                  ? SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: ImagePageScreen(
+                        imageUrls: widget.imageUrls!,
+                      ),
+                    )
+                  : Container(),
+            )
         ],
       ),
     );
