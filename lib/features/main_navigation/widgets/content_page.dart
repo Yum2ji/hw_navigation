@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hw_navigation/constants/gaps.dart';
 import 'package:hw_navigation/constants/sizes.dart';
+import 'package:hw_navigation/features/main_navigation/video_recording_screen.dart';
 import 'package:hw_navigation/features/main_navigation/widgets/alert_button.dart';
 import 'package:hw_navigation/features/main_navigation/widgets/image_page_screen.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ContentPage extends StatefulWidget {
   bool isWriteMode;
@@ -39,6 +43,7 @@ class ContentPage extends StatefulWidget {
 
 class _ContentPageState extends State<ContentPage> {
   int _lineCount = 1;
+  XFile? _selectedImage;
   TextEditingController userInputController = TextEditingController();
 
   @override
@@ -77,6 +82,20 @@ class _ContentPageState extends State<ContentPage> {
     setState(() {
       _lineCount = lineCount;
     });
+  }
+
+  Future<void> _onCameraRecordTap() async {
+    final image = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const VideoRecordingScreen(),
+      ),
+    );
+
+    if (image != null) {
+      setState(() {
+        _selectedImage = image;
+      });
+    }
   }
 
   @override
@@ -338,7 +357,7 @@ class _ContentPageState extends State<ContentPage> {
                               scrollPadding: EdgeInsets.zero,
                               cursorWidth: 2,
                               cursorColor: Colors.blue,
-                              decoration:  InputDecoration(
+                              decoration: InputDecoration(
                                 border: InputBorder.none,
                                 isDense: true,
                                 hintText: "Start a thread...",
@@ -347,16 +366,38 @@ class _ContentPageState extends State<ContentPage> {
                                   color: Colors.grey.shade500,
                                   fontWeight: FontWeight.w400,
                                 ),
-                              floatingLabelBehavior:
+                                floatingLabelBehavior:
                                     FloatingLabelBehavior.never,
                               ),
                             ),
                           ),
                           Gaps.v10,
-                          Icon(
-                            Icons.attach_file,
-                            size: Sizes.size24,
-                            color: Colors.grey.shade500,
+                          if (_selectedImage != null) ...[
+                            Container(
+                              width: MediaQuery.of(context).size.width*0.6,
+                              height: MediaQuery.of(context).size.height*0.4,
+                              clipBehavior: Clip.hardEdge,
+                              decoration:  BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.grey.shade300,
+                                  width: 1
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Image.file(
+                                File(_selectedImage!.path),
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                            Gaps.v10,
+                          ],
+                          GestureDetector(
+                            onTap: _onCameraRecordTap,
+                            child: Icon(
+                              Icons.attach_file,
+                              size: Sizes.size24,
+                              color: Colors.grey.shade500,
+                            ),
                           ),
                         ],
                         if (widget.imageUrls != null &&
@@ -416,14 +457,15 @@ class _ContentPageState extends State<ContentPage> {
           if (!widget.isWriteMode)
             Positioned(
               top: Sizes.size72,
-              child: (widget.imageUrls != null && widget.imageUrls!.isNotEmpty)
-                  ? SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: ImagePageScreen(
-                        imageUrls: widget.imageUrls!,
-                      ),
-                    )
-                  : Container(),
+              child:
+                  (widget.imageUrls != null && widget.imageUrls!.isNotEmpty)
+                      ? SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: ImagePageScreen(
+                            imageUrls: widget.imageUrls!,
+                          ),
+                        )
+                      : Container(),
             )
         ],
       ),

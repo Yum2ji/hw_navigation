@@ -10,13 +10,12 @@ class WritePage extends StatefulWidget {
 }
 
 class _WritePageState extends State<WritePage> {
-
   bool _openKeyboard = false;
 
   void _stopCommenting() {
     FocusScope.of(context).unfocus();
     setState(() {
-          _openKeyboard =false;
+      _openKeyboard = false;
     });
   }
 
@@ -34,6 +33,7 @@ class _WritePageState extends State<WritePage> {
       child: GestureDetector(
         onTap: _stopCommenting,
         child: Scaffold(
+          resizeToAvoidBottomInset: true,
           backgroundColor: Colors.white,
           appBar: AppBar(
             scrolledUnderElevation: 0,
@@ -72,26 +72,21 @@ class _WritePageState extends State<WritePage> {
           body: Stack(
             children: [
               Scrollbar(
-                child: Padding(
-                  padding:  EdgeInsets.only(
-                    bottom: FocusScope.of(context).hasFocus?MediaQuery.of(context).size.height*0.33:MediaQuery.of(context).size.height*0.6,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.005,
-                        child: const Divider(),
-                      ),
-                      ContentPage(
-                        isWriteMode: true,
-                        title: "짱구",
-                        // subtitle: "hi",
-                        representImage:
-                            "https://i.pinimg.com/736x/53/7e/f5/537ef59499259ba707068742f91a10f8.jpg",
-                      )
-                    ],
-                  ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.005,
+                      child: const Divider(),
+                    ),
+                    ContentPage(
+                      isWriteMode: true,
+                      title: "짱구",
+                      // subtitle: "hi",
+                      representImage:
+                          "https://i.pinimg.com/736x/53/7e/f5/537ef59499259ba707068742f91a10f8.jpg",
+                    )
+                  ],
                 ),
               ),
               Positioned(
