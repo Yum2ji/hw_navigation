@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hw_navigation/constants/gaps.dart';
 import 'package:hw_navigation/constants/sizes.dart';
+import 'package:hw_navigation/utils.dart';
 
 class ThreadContent extends StatelessWidget {
   String imageUrl;
@@ -22,6 +23,7 @@ class ThreadContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = isDarkMode(context);
     return Column(
       children: [
         Gaps.v10,
@@ -47,6 +49,7 @@ class ThreadContent extends StatelessWidget {
             Flexible(
               flex: 17,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Row(
@@ -82,9 +85,9 @@ class ThreadContent extends StatelessWidget {
                   Text.rich(
                     TextSpan(
                       text: subtitle[0],
-                      style: const TextStyle(
+                      style:  TextStyle(
                         fontSize: Sizes.size18,
-                        color: Colors.black,
+                        color: isDark? Colors.white: Colors.black,
                       ),
                       children: [
                         TextSpan(
@@ -132,7 +135,7 @@ class ThreadContent extends StatelessWidget {
                                     "iwetmyyplants",
                                     style: TextStyle(
                                       fontSize: Sizes.size18,
-                                      color: Colors.black,
+                                      //color: Colors.black,
                                     ),
                                   ),
                                   Gaps.h10,
@@ -148,7 +151,7 @@ class ThreadContent extends StatelessWidget {
                                 "I'm just going to say what we are all thinking and knowing is about to go downity down: There is about to be soe piping hot tea sillage on here daily that people will be ....",
                                 style: TextStyle(
                                   fontSize: Sizes.size18,
-                                  color: Colors.black,
+                               //   color: Colors.black,
                                 ),
                                 maxLines: 5,
                                 overflow: TextOverflow.ellipsis,
@@ -162,7 +165,7 @@ class ThreadContent extends StatelessWidget {
                                   ),
                                 ),
                                 child: Image.network(
-                                  "https://static.wikia.nocookie.net/shinchan/images/b/b2/%EC%8B%A0%EC%A7%B1%EA%B5%AC2.JPG/revision/latest?cb=20131026025408&path-prefix=ko",
+                                  "https://img.khan.co.kr/news/2017/08/22/l_2017082301002927300235691.jpg",
                                   fit: BoxFit.fill,
                                 ),
                               )

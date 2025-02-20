@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hw_navigation/constants/sizes.dart';
 import 'package:hw_navigation/features/main_navigation/widgets/content_page.dart';
+import 'package:hw_navigation/utils.dart';
 
 class WritePage extends StatefulWidget {
   const WritePage({super.key});
@@ -21,6 +22,7 @@ class _WritePageState extends State<WritePage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = isDarkMode(context);
     return Container(
       clipBehavior: Clip.hardEdge,
       height: MediaQuery.of(context).size.height * 0.93,
@@ -34,10 +36,10 @@ class _WritePageState extends State<WritePage> {
         onTap: _stopCommenting,
         child: Scaffold(
           resizeToAvoidBottomInset: true,
-          backgroundColor: Colors.white,
+          backgroundColor: isDark? Colors.grey.shade900 :Colors.white,
           appBar: AppBar(
             scrolledUnderElevation: 0,
-            backgroundColor: Colors.white,
+            backgroundColor: isDark? Colors.grey.shade900 : Colors.white,
             automaticallyImplyLeading: false,
             centerTitle: true,
             title: Padding(
@@ -52,7 +54,7 @@ class _WritePageState extends State<WritePage> {
                       "Cancel",
                       style: TextStyle(
                         fontSize: Sizes.size20,
-                        color: Colors.black,
+                       // color: Colors.black,
                       ),
                     ),
                   ),
@@ -84,7 +86,7 @@ class _WritePageState extends State<WritePage> {
                       title: "짱구",
                       // subtitle: "hi",
                       representImage:
-                          "https://i.pinimg.com/736x/53/7e/f5/537ef59499259ba707068742f91a10f8.jpg",
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBhHKm7wTWm__1JBtlIBeVNTaYtQergwalcA&s",
                     )
                   ],
                 ),
@@ -95,7 +97,7 @@ class _WritePageState extends State<WritePage> {
                 // bottomnavigation으로 scaffold에 만들어주면
                 //키보드 생겼을때 적고 있는 값이 안보여서 이렇게 할 수밖에 없음.
                 child: BottomAppBar(
-                  color: Colors.white,
+                  color:  isDark? Colors.grey.shade900  :Colors.white,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: Sizes.size4,

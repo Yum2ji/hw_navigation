@@ -39,11 +39,11 @@ class _SearchPageState extends State<SearchPage> {
             right: Sizes.size20,
           ),
           child: Scaffold(
-            backgroundColor: Colors.white,
+              backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
             appBar: AppBar(
               automaticallyImplyLeading: false,
               titleSpacing: 0,
-              backgroundColor: Colors.white,
+             // backgroundColor: Colors.white,
               forceMaterialTransparency: true,
               title: const Padding(
                 padding: EdgeInsets.zero,
@@ -76,7 +76,7 @@ class _SearchPageState extends State<SearchPage> {
                   Gaps.v16,
                   const SearchContent(
                     imageUrl:
-                        "https://i.pinimg.com/736x/53/7e/f5/537ef59499259ba707068742f91a10f8.jpg",
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBhHKm7wTWm__1JBtlIBeVNTaYtQergwalcA&s",
                     title: "짱구",
                     subtitle: "짱구는 못말려의 짱구",
                     follower: "23.3K",
@@ -84,10 +84,10 @@ class _SearchPageState extends State<SearchPage> {
                   Gaps.v16,
                   const SearchContent(
                     imageUrl:
-                        "https://mblogthumb-phinf.pstatic.net/MjAyMzAyMDhfNDQg/MDAxNjc1ODM0NTAzNTYy.-gOZwfsMuymLTpFESAV8Mns1IhbLYqAXIAvUMeKhJNIg.LW6XEuLA8IOnJlNb7FtbhU2cWl-9gfPCj9wCasT-aTog.JPEG.hotgogimandu/IMG_7251.JPG?type=w800",
-                    title: "짱아",
-                    subtitle: "짱아",
-                    follower: "100M",
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlzhAJkO5uyAs8TF8gxVE8leu21IqMML5ypg&s",
+                    title: "두목님",
+                    subtitle: "초록유치원원장님",
+                    follower: "1K",
                   ),
                   Gaps.v16,
                   const SearchContent(
@@ -124,10 +124,10 @@ class _SearchPageState extends State<SearchPage> {
                   Gaps.v16,
                   const SearchContent(
                     imageUrl:
-                        "https://i.namu.wiki/i/qWyoh8nA_DcTuY4gqcmkFC2k5Sbn8D6yVCVRQHMhJD-eRYtugUDNg6jP-v0VqbnFdCjL4jYrepNXw9ey8ouFAA.webp",
-                    title: "유리",
-                    subtitle: "짱구 절친 유리리",
-                    follower: "50.3K",
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfQNSKEII5Euf1DbxpP7XoN7LoXOWaiO22NA&s",
+                    title: "훈이",
+                    subtitle: "훈이훈이이",
+                    follower: "10.3K",
                   ),
                   Gaps.v16,
                   const SearchContent(
@@ -188,7 +188,7 @@ class _SearchPageState extends State<SearchPage> {
                   Gaps.v16,
                   const SearchContent(
                     imageUrl:
-                        "https://i.namu.wiki/i/qWyoh8nA_DcTuY4gqcmkFC2k5Sbn8D6yVCVRQHMhJD-eRYtugUDNg6jP-v0VqbnFdCjL4jYrepNXw9ey8ouFAA.webp",
+                        "https://i.pinimg.com/736x/53/7e/f5/537ef59499259ba707068742f91a10f8.jpg",
                     title: "유리",
                     subtitle: "짱구 절친 유리리",
                     follower: "50.3K",

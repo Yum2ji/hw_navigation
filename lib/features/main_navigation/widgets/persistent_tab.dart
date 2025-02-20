@@ -1,28 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hw_navigation/constants/sizes.dart';
+import 'package:hw_navigation/utils.dart';
 
 class PersistentTab extends SliverPersistentHeaderDelegate {
+  
+ 
   @override
   Widget build(
+
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
 
-      child: TabBar(
+      child: const TabBar(
         indicatorPadding: EdgeInsets.zero,
         indicatorWeight: 1,
         indicatorSize: TabBarIndicatorSize.tab,
-        indicatorColor: Colors.grey.shade800,
-        unselectedLabelColor: Colors.grey.shade500,
-        labelColor: Colors.black,
 
-        tabs:  const [
+        tabs:  [
           Text(
             "Threads",
             style: TextStyle(
               fontSize: Sizes.size20,
               fontWeight: FontWeight.w700,
-              color: Colors.black,
+             // color: Colors.black,
             ),
           ),
           Text(
@@ -30,7 +31,7 @@ class PersistentTab extends SliverPersistentHeaderDelegate {
             style: TextStyle(
               fontSize: Sizes.size20,
               fontWeight: FontWeight.w700,
-              color: Colors.black,
+             // color: Colors.black,
             ),
           ),
         ],

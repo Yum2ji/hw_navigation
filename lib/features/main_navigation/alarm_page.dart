@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hw_navigation/constants/gaps.dart';
 import 'package:hw_navigation/constants/sizes.dart';
 import 'package:hw_navigation/features/main_navigation/widgets/alarm_content.dart';
+import 'package:hw_navigation/utils.dart';
 
 final tabs = [
   "All",
@@ -17,6 +18,7 @@ final tabs = [
 ];
 
 class AlarmPage extends StatefulWidget {
+
   const AlarmPage({super.key});
 
   @override
@@ -34,6 +36,7 @@ class _AlarmPageState extends State<AlarmPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = isDarkMode(context);
     final width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Padding(
@@ -45,11 +48,11 @@ class _AlarmPageState extends State<AlarmPage> {
         child: DefaultTabController(
           length: tabs.length,
           child: Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
             appBar: AppBar(
               automaticallyImplyLeading: false,
               titleSpacing: 0,
-              backgroundColor: Colors.white,
+              // backgroundColor: Colors.white,
               title: const Text(
                 textAlign: TextAlign.start,
                 "Activity",
@@ -82,7 +85,11 @@ class _AlarmPageState extends State<AlarmPage> {
                                 : Colors.grey.shade400, // 선택된 탭에만 검은색 테두리
                             width: 1, // 테두리 두께
                           ),
-                          color: tab == _selected ? Colors.black : Colors.white,
+                          color: tab == _selected
+                              ? isDark
+                                  ? Colors.grey.shade600
+                                  : Colors.black
+                              : Colors.white,
                         ),
                         child: Center(
                           child: Text(
@@ -97,7 +104,7 @@ class _AlarmPageState extends State<AlarmPage> {
                     )
                 ],
                 unselectedLabelColor: Colors.black,
-                labelColor: Colors.white,
+                labelColor: isDark ? Colors.grey.shade200 : Colors.white,
                 labelStyle: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: Sizes.size16,
@@ -114,11 +121,11 @@ class _AlarmPageState extends State<AlarmPage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         AlarmContent(
-                          title: "John_mobbin",
+                          title: "짱구",
                           time: "4h",
                           subtitle: "Mentioned you",
                           urlImage:
-                              "https://i.pinimg.com/736x/53/7e/f5/537ef59499259ba707068742f91a10f8.jpg",
+                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBhHKm7wTWm__1JBtlIBeVNTaYtQergwalcA&s",
                           description:
                               "Here's a thread you should follow if you love botany @jane_mobbin.",
                         ),
@@ -127,7 +134,7 @@ class _AlarmPageState extends State<AlarmPage> {
                           time: "5h",
                           subtitle: "Followed you",
                           urlImage:
-                              "https://mblogthumb-phinf.pstatic.net/MjAyMzAyMDhfNDQg/MDAxNjc1ODM0NTAzNTYy.-gOZwfsMuymLTpFESAV8Mns1IhbLYqAXIAvUMeKhJNIg.LW6XEuLA8IOnJlNb7FtbhU2cWl-9gfPCj9wCasT-aTog.JPEG.hotgogimandu/IMG_7251.JPG?type=w800",
+                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBhHKm7wTWm__1JBtlIBeVNTaYtQergwalcA&s",
                           isFollow: true,
                         ),
                         AlarmContent(
@@ -139,7 +146,7 @@ class _AlarmPageState extends State<AlarmPage> {
                           isFollow: true,
                         ),
                         AlarmContent(
-                          title: "Yumi",
+                          title: "두목님님",
                           time: "2d",
                           subtitle: "Send message",
                           urlImage:
@@ -147,11 +154,11 @@ class _AlarmPageState extends State<AlarmPage> {
                           description: "hi this is homework homework haha",
                         ),
                         AlarmContent(
-                          title: "John_mobbin",
+                          title: "훈이2",
                           time: "4h",
                           subtitle: "Mentioned you",
                           urlImage:
-                              "https://i.pinimg.com/736x/53/7e/f5/537ef59499259ba707068742f91a10f8.jpg",
+                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfQNSKEII5Euf1DbxpP7XoN7LoXOWaiO22NA&s",
                           description:
                               "Here's a thread you should follow if you love botany @jane_mobbin.",
                         ),
@@ -160,7 +167,7 @@ class _AlarmPageState extends State<AlarmPage> {
                           time: "5h",
                           subtitle: "Followed you",
                           urlImage:
-                              "https://mblogthumb-phinf.pstatic.net/MjAyMzAyMDhfNDQg/MDAxNjc1ODM0NTAzNTYy.-gOZwfsMuymLTpFESAV8Mns1IhbLYqAXIAvUMeKhJNIg.LW6XEuLA8IOnJlNb7FtbhU2cWl-9gfPCj9wCasT-aTog.JPEG.hotgogimandu/IMG_7251.JPG?type=w800",
+                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlzhAJkO5uyAs8TF8gxVE8leu21IqMML5ypg&s",
                           isFollow: true,
                         ),
                         AlarmContent(

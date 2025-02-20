@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hw_navigation/constants/gaps.dart';
 import 'package:hw_navigation/constants/sizes.dart';
+import 'package:hw_navigation/utils.dart';
 
 class ReplyContent extends StatelessWidget {
   String imageUrl;
@@ -22,6 +23,7 @@ class ReplyContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = isDarkMode(context);
     final height = MediaQuery.of(context).size.height;
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -108,9 +110,9 @@ class ReplyContent extends StatelessWidget {
                   Text.rich(
                     TextSpan(
                       text: subtitle[0],
-                      style: const TextStyle(
+                      style:  TextStyle(
                         fontSize: Sizes.size18,
-                        color: Colors.black,
+                        color: isDark? Colors.white: Colors.black,
                       ),
                       children: [
                         TextSpan(
@@ -158,7 +160,7 @@ class ReplyContent extends StatelessWidget {
                                     "iwetmyyplants",
                                     style: TextStyle(
                                       fontSize: Sizes.size18,
-                                      color: Colors.black,
+                                    //  color: Colors.black,
                                     ),
                                   ),
                                   Gaps.h10,
@@ -174,7 +176,7 @@ class ReplyContent extends StatelessWidget {
                                 "I'm just going to say what we are all thinking and knowing is about to go downity down: There is about to be soe piping hot tea sillage on here daily that people will be ....",
                                 style: TextStyle(
                                   fontSize: Sizes.size18,
-                                  color: Colors.black,
+                                 // color: Colors.black,
                                 ),
                                 maxLines: 5,
                                 overflow: TextOverflow.ellipsis,
@@ -188,7 +190,7 @@ class ReplyContent extends StatelessWidget {
                                   ),
                                 ),
                                 child: Image.network(
-                                  "https://static.wikia.nocookie.net/shinchan/images/b/b2/%EC%8B%A0%EC%A7%B1%EA%B5%AC2.JPG/revision/latest?cb=20131026025408&path-prefix=ko",
+                                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNT06kXfbeS9_IapNSpA_-NsY6mf-IjREXSw&s",
                                   fit: BoxFit.fill,
                                 ),
                               )
@@ -248,7 +250,7 @@ class ReplyContent extends StatelessWidget {
                     "See you there!",
                     style: TextStyle(
                       fontSize: Sizes.size18,
-                      color: Colors.black,
+                    //  color: Colors.black,
                     ),
                   ),
                   Gaps.v20,

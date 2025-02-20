@@ -41,7 +41,7 @@ class _SearchContentState extends State<SearchContent> {
               Text(
                 widget.title,
                 style: const TextStyle(
-                  color: Colors.black,
+                //  color: Colors.black,
                   fontWeight: FontWeight.w800,
                   fontSize: Sizes.size20,
                 ),
@@ -81,7 +81,7 @@ class _SearchContentState extends State<SearchContent> {
                 child: Text(
                   "Follow",
                   style: TextStyle(
-                    color: Colors.black,
+                   // color: Colors.black,
                     fontSize: Sizes.size20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -98,7 +98,7 @@ class _SearchContentState extends State<SearchContent> {
             Text(
               "${widget.follower} Followers",
               style: const TextStyle(
-                color: Colors.black,
+              //  color: Colors.black,
                 fontWeight: FontWeight.w600,
                 fontSize: Sizes.size18,
               ),

@@ -12,7 +12,7 @@ class ReplyList extends StatelessWidget {
         children: [
           ReplyContent(
             imageUrl:
-                "https://i.pinimg.com/736x/53/7e/f5/537ef59499259ba707068742f91a10f8.jpg",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBhHKm7wTWm__1JBtlIBeVNTaYtQergwalcA&s",
             title: "짱구",
             time: "3h",
             subtitle: const [
@@ -24,7 +24,7 @@ class ReplyList extends StatelessWidget {
           ),
           ReplyContent(
             imageUrl:
-                "https://i.pinimg.com/736x/53/7e/f5/537ef59499259ba707068742f91a10f8.jpg",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBhHKm7wTWm__1JBtlIBeVNTaYtQergwalcA&s",
             title: "짱구",
             time: "5h",
             subtitle: const ["thanks ", "@Yumi ", "Below image is very good"],
@@ -32,7 +32,7 @@ class ReplyList extends StatelessWidget {
           ),
           ReplyContent(
             imageUrl:
-                "https://i.pinimg.com/736x/53/7e/f5/537ef59499259ba707068742f91a10f8.jpg",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBhHKm7wTWm__1JBtlIBeVNTaYtQergwalcA&s",
             title: "짱구",
             time: "5h",
             subtitle: const [
@@ -44,7 +44,7 @@ class ReplyList extends StatelessWidget {
           ),
           ReplyContent(
             imageUrl:
-                "https://i.pinimg.com/736x/53/7e/f5/537ef59499259ba707068742f91a10f8.jpg",
+               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBhHKm7wTWm__1JBtlIBeVNTaYtQergwalcA&s",
             title: "짱구",
             time: "5h",
             subtitle: const ["thanks ", "@Yumi ", "Below image is very good"],

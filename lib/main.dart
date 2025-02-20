@@ -1,8 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:hw_navigation/features/darkmodes/repos/dark_playback_config_repo.dart';
+import 'package:hw_navigation/features/darkmodes/view_models/playback_config_vm.dart';
 import 'package:hw_navigation/features/main_navigation/main_navigation_screen.dart';
+import 'package:hw_navigation/router.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const NavigationApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final preferences = await SharedPreferences.getInstance();
+  final repository = DarkPlaybackConfigRepository(preferences);
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => PlaybackConfigViewModel(repository),
+        ),
+      ],
+      child: const NavigationApp(),
+    ),
+  );
 }
 
 class NavigationApp extends StatelessWidget {
@@ -11,15 +30,40 @@ class NavigationApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    
-    return MaterialApp(
-      debugShowCheckedModeBanner: false, 
+    return MaterialApp.router(
+      routerConfig: router,
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
+      themeMode: context.watch<PlaybackConfigViewModel>().darkmode
+          ? ThemeMode.dark
+          : ThemeMode.light,
       theme: ThemeData(
-         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        brightness: Brightness.light,
         useMaterial3: true,
+        bottomAppBarTheme: const BottomAppBarTheme(
+          color: Colors.white,
+        ),
+        tabBarTheme: TabBarTheme(
+          indicatorColor: Colors.grey.shade800,
+          unselectedLabelColor: Colors.grey.shade500,
+          labelColor: Colors.black,
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+        ),
       ),
-      home: const MainNavigationScreen(),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.dark,
+        tabBarTheme: TabBarTheme(
+          indicatorColor: Colors.grey.shade300,
+          unselectedLabelColor: Colors.grey.shade800,
+          labelColor: Colors.grey.shade300,
+        ),
+     
+      ),
+      //home: const MainNavigationScreen(),
     );
   }
 }

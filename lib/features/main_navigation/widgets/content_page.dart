@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hw_navigation/constants/breakpoint.dart';
 import 'package:hw_navigation/constants/gaps.dart';
 import 'package:hw_navigation/constants/sizes.dart';
 import 'package:hw_navigation/features/main_navigation/video_recording_screen.dart';
 import 'package:hw_navigation/features/main_navigation/widgets/alert_button.dart';
 import 'package:hw_navigation/features/main_navigation/widgets/image_page_screen.dart';
+import 'package:hw_navigation/utils.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ContentPage extends StatefulWidget {
@@ -100,6 +102,8 @@ class _ContentPageState extends State<ContentPage> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final isDark = isDarkMode(context);
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: Sizes.size20,
@@ -154,9 +158,9 @@ class _ContentPageState extends State<ContentPage> {
                     Gaps.v10,
                     SizedBox(
                       height: !widget.isWriteMode
-                          ? (widget.imageUrls!.isNotEmpty
-                              ? MediaQuery.of(context).size.height * 0.23
-                              : MediaQuery.of(context).size.height * 0.05)
+                          ? (widget.imageUrls!.isNotEmpty && height > Breakpoints.sm
+                              ? MediaQuery.of(context).size.height * 0.4
+                              : MediaQuery.of(context).size.height * 0.2)
                           : (MediaQuery.of(context).size.height *
                               0.02 *
                               (_lineCount - 1)),
@@ -402,8 +406,8 @@ class _ContentPageState extends State<ContentPage> {
                         ],
                         if (widget.imageUrls != null &&
                             widget.imageUrls!.isNotEmpty)
-                          const SizedBox(
-                            height: 200,
+                           SizedBox(
+                            height: height>Breakpoints.sm? height*0.46 : 200,
                           ),
                         if (!widget.isWriteMode)
                           const Column(

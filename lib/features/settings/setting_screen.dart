@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hw_navigation/constants/gaps.dart';
 import 'package:hw_navigation/constants/sizes.dart';
+import 'package:hw_navigation/features/darkmodes/view_models/playback_config_vm.dart';
 import 'package:hw_navigation/features/settings/privacy_screen.dart';
+import 'package:hw_navigation/utils.dart';
 
 class SettingScreen extends StatefulWidget {
+  static String routeName ="settings";
+  static const routeURL ="settings";
   const SettingScreen({super.key});
 
   @override
@@ -14,11 +19,12 @@ class _SettingScreenState extends State<SettingScreen> {
   bool isLogOut = false;
 
   void _onPrivacy() {
-    Navigator.of(context).push(
+/*     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const PrivacyScreen(),
       ),
-    );
+    ); */
+    context.pushNamed(PrivacyScreen.routeName);
   }
 
   void _onLogOut() {
@@ -29,9 +35,11 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = isDarkMode(context) ;
+   
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+      //  backgroundColor: Colors.white,
         body: Column(
           children: [
             Gaps.v10,
@@ -41,15 +49,16 @@ class _SettingScreenState extends State<SettingScreen> {
                   onTap: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Row(
+                  child:  Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
                         Icons.keyboard_arrow_left,
+                        color: isDark? Colors.white : Colors.grey.shade800,
                       ),
                       Gaps.h5,
-                      Text(
+                      const Text(
                         "Back",
                         style: TextStyle(
                           fontSize: Sizes.size22,
@@ -76,26 +85,26 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
             Gaps.v10,
             const Divider(),
-            const ListTile(
+             ListTile(
               leading: Icon(
                 Icons.person_add_outlined,
                 size: Sizes.size32,
-                color: Colors.black,
+                color:  isDark? Colors.white : Colors.grey.shade800,
               ),
-              title: Text(
+              title: const Text(
                 "Follow and invite friends",
                 style: TextStyle(
                   fontSize: Sizes.size20,
                 ),
               ),
             ),
-            const ListTile(
+             ListTile(
               leading: Icon(
                 Icons.notifications,
                 size: Sizes.size32,
-                color: Colors.black,
+                color:  isDark? Colors.white : Colors.grey.shade800,
               ),
-              title: Text(
+              title: const Text(
                 "Notifications",
                 style: TextStyle(
                   fontSize: Sizes.size20,
@@ -104,13 +113,13 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
             GestureDetector(
               onTap: _onPrivacy,
-              child: const ListTile(
+              child:  ListTile(
                 leading: Icon(
                   Icons.lock,
                   size: Sizes.size32,
-                  color: Colors.black,
+                  color:  isDark? Colors.white : Colors.grey.shade800,
                 ),
-                title: Text(
+                title: const Text(
                   "Priavacy",
                   style: TextStyle(
                     fontSize: Sizes.size20,
@@ -118,39 +127,39 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
               ),
             ),
-            const ListTile(
+             ListTile(
               leading: Icon(
                 Icons.person_outline,
                 size: Sizes.size32,
-                color: Colors.black,
+                color:  isDark? Colors.white : Colors.grey.shade800,
               ),
-              title: Text(
+              title: const Text(
                 "Account",
                 style: TextStyle(
                   fontSize: Sizes.size20,
                 ),
               ),
             ),
-            const ListTile(
+             ListTile(
               leading: Icon(
                 Icons.live_help_outlined,
                 size: Sizes.size32,
-                color: Colors.black,
+                color:  isDark? Colors.white : Colors.grey.shade800,
               ),
-              title: Text(
+              title: const Text(
                 "Help",
                 style: TextStyle(
                   fontSize: Sizes.size20,
                 ),
               ),
             ),
-            const ListTile(
+             ListTile(
               leading: Icon(
                 Icons.info_outline,
                 size: Sizes.size32,
-                color: Colors.black,
+                color:  isDark? Colors.white : Colors.grey.shade800,
               ),
-              title: Text(
+              title: const Text(
                 "About",
                 style: TextStyle(
                   fontSize: Sizes.size20,

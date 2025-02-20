@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hw_navigation/constants/sizes.dart';
 import 'package:hw_navigation/features/main_navigation/alarm_page.dart';
 import 'package:hw_navigation/features/main_navigation/home_page.dart';
@@ -9,16 +10,34 @@ import 'package:hw_navigation/features/main_navigation/widgets/nav_page.dart';
 import 'package:hw_navigation/features/main_navigation/write_page.dart';
 
 class MainNavigationScreen extends StatefulWidget {
-  const MainNavigationScreen({super.key});
+  static const String routeName = "mainNavigation";
+  final String tab;
+  const MainNavigationScreen({super.key, required this.tab});
 
   @override
   State<MainNavigationScreen> createState() => _MainNavigationScreenState();
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _selectedIndex = 1;
+  final List<String> _tabs = [
+    "home",
+    "search",
+    "video",
+    "activity",
+    "profile",
+  ];
+
+  late int _selectedIndex = _tabs.indexOf(widget.tab);
 
   void _onTap(int index) {
+context.go("/${_tabs[index]}");
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  void _onHomTap(int index){
+     context.goNamed("home");
     setState(() {
       _selectedIndex = index;
     });
@@ -35,7 +54,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       body: Stack(
         children: [
           Offstage(
@@ -61,7 +80,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
+        //  color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: Sizes.size1,
@@ -74,7 +93,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               NavPage(
                 icon: FontAwesomeIcons.house,
                 isSelected: _selectedIndex == 0,
-                onTap: () => _onTap(0),
+                onTap: () => _onHomTap(0),
               ),
               NavPage(
                 icon: FontAwesomeIcons.magnifyingGlass,

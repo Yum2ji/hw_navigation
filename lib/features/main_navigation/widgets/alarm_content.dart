@@ -128,7 +128,7 @@ class AlarmContent extends StatelessWidget {
                                   child: Text(
                                     "Follow",
                                     style: TextStyle(
-                                      color: Colors.black,
+                                     // color: Colors.black,
                                       fontSize: Sizes.size20,
                                       fontWeight: FontWeight.bold,
                                     ),

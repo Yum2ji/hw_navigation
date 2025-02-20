@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hw_navigation/constants/gaps.dart';
 import 'package:hw_navigation/constants/sizes.dart';
+import 'package:hw_navigation/features/darkmodes/models/playback_config_model.dart';
+import 'package:hw_navigation/features/darkmodes/view_models/playback_config_vm.dart';
+import 'package:hw_navigation/main.dart';
+import 'package:hw_navigation/utils.dart';
+import 'package:provider/provider.dart';
 
 class PrivacyScreen extends StatefulWidget {
+  static String routeName = "privacy";
+  static const routeURL = "privacy";
   const PrivacyScreen({super.key});
 
   @override
@@ -22,9 +29,10 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = isDarkMode(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         body: Column(
           children: [
             Gaps.v10,
@@ -34,15 +42,16 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                   onTap: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Row(
+                  child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
                         Icons.keyboard_arrow_left,
+                        color: isDark ? Colors.white : Colors.grey.shade800,
                       ),
                       Gaps.h5,
-                      Text(
+                      const Text(
                         "Back",
                         style: TextStyle(
                           fontSize: Sizes.size22,
@@ -74,15 +83,15 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
               activeColor: Colors.white,
               value: _private,
               onChanged: _onPrivateChanged,
-              title: const Row(
+              title: Row(
                 children: [
                   Icon(
                     Icons.lock_outline_rounded,
                     size: Sizes.size32,
-                    color: Colors.black,
+                    color: isDark ? Colors.white : Colors.grey.shade800,
                   ),
                   Gaps.h5,
-                  Text(
+                  const Text(
                     "  Priavacy",
                     style: TextStyle(
                       fontSize: Sizes.size20,
@@ -91,13 +100,13 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                 ],
               ),
             ),
-            const ListTile(
+            ListTile(
               leading: Icon(
                 Icons.comment,
                 size: Sizes.size32,
-                color: Colors.black,
+                color: isDark ? Colors.white : Colors.grey.shade800,
               ),
-              title: Text(
+              title: const Text(
                 "Mentions",
                 style: TextStyle(
                   fontSize: Sizes.size20,
@@ -106,15 +115,16 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
               trailing: Icon(
                 Icons.arrow_forward_ios,
                 size: Sizes.size20,
+                color: isDark ? Colors.white : Colors.grey.shade800,
               ),
             ),
-            const ListTile(
+            ListTile(
               leading: Icon(
                 Icons.music_off_outlined,
                 size: Sizes.size32,
-                color: Colors.black,
+                color: isDark ? Colors.white : Colors.grey.shade800,
               ),
-              title: Text(
+              title: const Text(
                 "Muted",
                 style: TextStyle(
                   fontSize: Sizes.size20,
@@ -122,16 +132,39 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
               ),
               trailing: Icon(
                 Icons.arrow_forward_ios,
-                size: Sizes.size20,
+                color: isDark ? Colors.white : Colors.grey.shade800,
               ),
             ),
-            const ListTile(
+            SwitchListTile.adaptive(
+              activeTrackColor: Colors.black,
+              activeColor: Colors.white,
+              value: context.watch<PlaybackConfigViewModel>().darkmode,
+              onChanged: (value) =>
+                  context.read<PlaybackConfigViewModel>().setDarkmode(value),
+              title: Row(
+                children: [
+                  Icon(
+                    Icons.dark_mode,
+                    size: Sizes.size32,
+                    color: isDark ? Colors.white : Colors.grey.shade800,
+                  ),
+                  Gaps.h5,
+                  const Text(
+                    "  Darkmode",
+                    style: TextStyle(
+                      fontSize: Sizes.size20,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
               leading: Icon(
                 Icons.hide_source,
                 size: Sizes.size32,
-                color: Colors.black,
+                color: isDark ? Colors.white : Colors.grey.shade800,
               ),
-              title: Text(
+              title: const Text(
                 "Hidden Words",
                 style: TextStyle(
                   fontSize: Sizes.size20,
@@ -140,15 +173,16 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
               trailing: Icon(
                 Icons.arrow_forward_ios,
                 size: Sizes.size20,
+                color: isDark ? Colors.white : Colors.grey.shade800,
               ),
             ),
-            const ListTile(
+            ListTile(
               leading: Icon(
                 Icons.people_outline,
                 size: Sizes.size32,
-                color: Colors.black,
+                color: isDark ? Colors.white : Colors.grey.shade800,
               ),
-              title: Text(
+              title: const Text(
                 "Profiles you follow",
                 style: TextStyle(
                   fontSize: Sizes.size20,
@@ -157,6 +191,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
               trailing: Icon(
                 Icons.arrow_forward_ios,
                 size: Sizes.size20,
+                color: isDark ? Colors.white : Colors.grey.shade800,
               ),
             ),
             const Divider(),
@@ -174,18 +209,19 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                   color: Colors.grey.shade500,
                 ),
               ),
-              trailing: const Icon(
+              trailing: Icon(
                 Icons.ios_share_sharp,
                 size: Sizes.size20,
+                color: isDark ? Colors.white : Colors.grey.shade800,
               ),
             ),
-            const ListTile(
+            ListTile(
               leading: Icon(
                 Icons.block_outlined,
                 size: Sizes.size32,
-                color: Colors.black,
+                color: isDark ? Colors.white : Colors.grey.shade800,
               ),
-              title: Text(
+              title: const Text(
                 "Blocked profiles",
                 style: TextStyle(
                   fontSize: Sizes.size20,
@@ -194,15 +230,16 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
               trailing: Icon(
                 Icons.ios_share_sharp,
                 size: Sizes.size20,
+                color: isDark ? Colors.white : Colors.grey.shade800,
               ),
             ),
-            const ListTile(
+            ListTile(
               leading: FaIcon(
                 FontAwesomeIcons.heartCircleXmark,
                 size: Sizes.size32,
-                color: Colors.black,
+                color: isDark ? Colors.white : Colors.grey.shade800,
               ),
-              title: Text(
+              title: const Text(
                 "Hide likes",
                 style: TextStyle(
                   fontSize: Sizes.size20,
@@ -211,6 +248,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
               trailing: Icon(
                 Icons.ios_share_sharp,
                 size: Sizes.size20,
+                color: isDark ? Colors.white : Colors.grey.shade800,
               ),
             ),
           ],

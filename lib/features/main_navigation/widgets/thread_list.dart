@@ -13,10 +13,11 @@ class ThreadList extends StatelessWidget {
     return ListView.builder(
       itemCount: 1,
       itemBuilder: (context, index) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ThreadContent(
             imageUrl:
-                "https://i.pinimg.com/736x/53/7e/f5/537ef59499259ba707068742f91a10f8.jpg",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBhHKm7wTWm__1JBtlIBeVNTaYtQergwalcA&s",
             title: "짱구",
             time: "3h",
             subtitle: const [
@@ -28,7 +29,7 @@ class ThreadList extends StatelessWidget {
           ),
           ThreadContent(
             imageUrl:
-                "https://i.pinimg.com/736x/53/7e/f5/537ef59499259ba707068742f91a10f8.jpg",
+               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBhHKm7wTWm__1JBtlIBeVNTaYtQergwalcA&s",
             title: "짱구",
             time: "5h",
             subtitle: const ["thanks ", "@Yumi ", "Below image is very good"],
@@ -36,7 +37,7 @@ class ThreadList extends StatelessWidget {
           ),
           ThreadContent(
             imageUrl:
-                "https://i.pinimg.com/736x/53/7e/f5/537ef59499259ba707068742f91a10f8.jpg",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBhHKm7wTWm__1JBtlIBeVNTaYtQergwalcA&s",
             title: "짱구",
             time: "5h",
             subtitle: const [
@@ -48,7 +49,7 @@ class ThreadList extends StatelessWidget {
           ),
           ThreadContent(
             imageUrl:
-                "https://i.pinimg.com/736x/53/7e/f5/537ef59499259ba707068742f91a10f8.jpg",
+               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBhHKm7wTWm__1JBtlIBeVNTaYtQergwalcA&s",
             title: "짱구",
             time: "5h",
             subtitle: const ["thanks ", "@Yumi ", "Below image is very good"],
