@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hw_navigation/constants/gaps.dart';
 import 'package:hw_navigation/constants/sizes.dart';
@@ -17,15 +18,15 @@ final tabs = [
   "Brands",
 ];
 
-class AlarmPage extends StatefulWidget {
+class AlarmPage extends ConsumerStatefulWidget {
 
   const AlarmPage({super.key});
 
   @override
-  State<AlarmPage> createState() => _AlarmPageState();
+  AlarmPageState createState() => AlarmPageState();
 }
 
-class _AlarmPageState extends State<AlarmPage> {
+class AlarmPageState extends ConsumerState<AlarmPage> {
   String _selected = "All";
 
   void _onTabBarTap(String val) {
@@ -36,7 +37,7 @@ class _AlarmPageState extends State<AlarmPage> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = isDarkMode(context);
+    final isDark = isDarkMode(ref, context);
     final width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Padding(

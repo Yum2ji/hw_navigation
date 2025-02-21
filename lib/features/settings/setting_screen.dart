@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hw_navigation/constants/gaps.dart';
 import 'package:hw_navigation/constants/sizes.dart';
@@ -6,16 +7,16 @@ import 'package:hw_navigation/features/darkmodes/view_models/playback_config_vm.
 import 'package:hw_navigation/features/settings/privacy_screen.dart';
 import 'package:hw_navigation/utils.dart';
 
-class SettingScreen extends StatefulWidget {
+class SettingScreen extends ConsumerStatefulWidget {
   static String routeName ="settings";
   static const routeURL ="settings";
   const SettingScreen({super.key});
 
   @override
-  State<SettingScreen> createState() => _SettingScreenState();
+  SettingScreenState createState() => SettingScreenState();
 }
 
-class _SettingScreenState extends State<SettingScreen> {
+class SettingScreenState extends ConsumerState<SettingScreen> {
   bool isLogOut = false;
 
   void _onPrivacy() {
@@ -35,7 +36,7 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = isDarkMode(context) ;
+    final isDark = isDarkMode(ref, context) ;
    
     return SafeArea(
       child: Scaffold(

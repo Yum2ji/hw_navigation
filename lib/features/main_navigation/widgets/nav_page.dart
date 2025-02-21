@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hw_navigation/constants/sizes.dart';
 import 'package:hw_navigation/utils.dart';
 
 
-class NavPage extends StatelessWidget {
+class NavPage extends ConsumerWidget {
   final IconData icon;
   final bool isSelected;
   Function onTap;
@@ -16,8 +17,8 @@ class NavPage extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final isDark = isDarkMode(context);
+  Widget build(BuildContext context,WidgetRef ref) {
+    final isDark = isDarkMode(ref, context);
     return Expanded(
       child: GestureDetector(
         onTap: () => onTap(),

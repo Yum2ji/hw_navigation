@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hw_navigation/constants/sizes.dart';
 import 'package:hw_navigation/features/main_navigation/widgets/content_page.dart';
 import 'package:hw_navigation/utils.dart';
 
-class WritePage extends StatefulWidget {
+class WritePage extends ConsumerStatefulWidget {
   const WritePage({super.key});
 
   @override
-  State<WritePage> createState() => _WritePageState();
+  WritePageState createState() => WritePageState();
 }
 
-class _WritePageState extends State<WritePage> {
+class WritePageState extends ConsumerState<WritePage> {
   bool _openKeyboard = false;
 
   void _stopCommenting() {
@@ -22,7 +23,7 @@ class _WritePageState extends State<WritePage> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = isDarkMode(context);
+    final isDark = isDarkMode(ref, context);
     return Container(
       clipBehavior: Clip.hardEdge,
       height: MediaQuery.of(context).size.height * 0.93,

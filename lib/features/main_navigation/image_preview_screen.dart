@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gallery_saver/gallery_saver.dart';
+//import 'package:gallery_saver/gallery_saver.dart';
 import 'package:video_player/video_player.dart';
 
 class ImagePreviewScreen extends StatefulWidget {
@@ -28,7 +28,7 @@ class _ImagePreviewScreenState extends State<ImagePreviewScreen> {
 
   Future<void> _saveToGallery() async {
     if (_saveImage) return;
-    await GallerySaver.saveImage(widget.image.path, albumName: "TikTok clone!");
+    //await GallerySaver.saveImage(widget.image.path, albumName: "TikTok clone!");
 
     _saveImage = true;
     setState(() {});

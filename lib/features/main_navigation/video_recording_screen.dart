@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gallery_saver/gallery_saver.dart';
+//import 'package:gallery_saver/gallery_saver.dart';
 import 'package:hw_navigation/constants/gaps.dart';
 import 'package:hw_navigation/constants/sizes.dart';
 import 'package:hw_navigation/features/main_navigation/image_preview_screen.dart';
@@ -76,7 +76,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   Future<void> _takeCamera() async {
     final image = await _cameraController.takePicture();
     _buttonAnimationController.forward();
-    await GallerySaver.saveImage(image.path, albumName: "TikTok clone!");
+  //  await GallerySaver.saveImage(image.path, albumName: "TikTok clone!");
     Navigator.pop(context, image);
   }
 

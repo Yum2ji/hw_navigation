@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gallery_saver/gallery_saver.dart';
+//import 'package:gallery_saver/gallery_saver.dart';
 import 'package:hw_navigation/constants/gaps.dart';
 import 'package:hw_navigation/constants/sizes.dart';
 import 'package:image_picker/image_picker.dart';

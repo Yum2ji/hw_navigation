@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hw_navigation/constants/gaps.dart';
 import 'package:hw_navigation/constants/sizes.dart';
 import 'package:hw_navigation/utils.dart';
 
-class ReplyContent extends StatelessWidget {
+class ReplyContent extends ConsumerWidget {
   String imageUrl;
   String title;
   String time;
@@ -22,8 +23,8 @@ class ReplyContent extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final isDark = isDarkMode(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = isDarkMode(ref, context);
     final height = MediaQuery.of(context).size.height;
     return Column(
       mainAxisSize: MainAxisSize.min,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hw_navigation/constants/gaps.dart';
@@ -11,14 +12,14 @@ import 'package:hw_navigation/features/settings/setting_screen.dart';
 import 'package:hw_navigation/router.dart';
 import 'package:hw_navigation/utils.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends ConsumerStatefulWidget {
   const ProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  ProfilePageState createState() => ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class ProfilePageState extends ConsumerState<ProfilePage> {
   bool isSet = false;
 
   void _onSettingPressed() {
@@ -33,7 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = isDarkMode(context);
+    final isDark = isDarkMode(ref, context);
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(

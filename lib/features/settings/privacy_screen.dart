@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hw_navigation/constants/gaps.dart';
 import 'package:hw_navigation/constants/sizes.dart';
@@ -8,16 +9,16 @@ import 'package:hw_navigation/main.dart';
 import 'package:hw_navigation/utils.dart';
 import 'package:provider/provider.dart';
 
-class PrivacyScreen extends StatefulWidget {
+class PrivacyScreen extends ConsumerStatefulWidget {
   static String routeName = "privacy";
   static const routeURL = "privacy";
   const PrivacyScreen({super.key});
 
   @override
-  State<PrivacyScreen> createState() => _PrivacyScreenState();
+  PrivacyScreenState createState() => PrivacyScreenState();
 }
 
-class _PrivacyScreenState extends State<PrivacyScreen> {
+class PrivacyScreenState extends ConsumerState<PrivacyScreen> {
   bool _private = false;
 
   void _onPrivateChanged(bool? newValue) {
@@ -29,7 +30,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = isDarkMode(context);
+    final isDark = isDarkMode(ref, context);
     return SafeArea(
       child: Scaffold(
         // backgroundColor: Colors.white,
@@ -138,9 +139,11 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
             SwitchListTile.adaptive(
               activeTrackColor: Colors.black,
               activeColor: Colors.white,
-              value: context.watch<PlaybackConfigViewModel>().darkmode,
+              value: ref.watch(playbackConfigProvider).darkmode,
+              //context.watch<PlaybackConfigViewModel>().darkmode,
               onChanged: (value) =>
-                  context.read<PlaybackConfigViewModel>().setDarkmode(value),
+                  ref.read(playbackConfigProvider.notifier).setDarkMode(value),
+              // context.read<PlaybackConfigViewModel>().setDarkmode(value),
               title: Row(
                 children: [
                   Icon(

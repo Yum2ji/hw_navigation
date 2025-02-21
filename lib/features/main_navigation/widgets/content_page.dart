@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hw_navigation/constants/breakpoint.dart';
 import 'package:hw_navigation/constants/gaps.dart';
@@ -11,7 +12,7 @@ import 'package:hw_navigation/features/main_navigation/widgets/image_page_screen
 import 'package:hw_navigation/utils.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ContentPage extends StatefulWidget {
+class ContentPage extends ConsumerStatefulWidget {
   bool isWriteMode;
   final String title;
 
@@ -40,10 +41,10 @@ class ContentPage extends StatefulWidget {
   });
 
   @override
-  State<ContentPage> createState() => _ContentPageState();
+  ContentPageState createState() => ContentPageState();
 }
 
-class _ContentPageState extends State<ContentPage> {
+class ContentPageState extends ConsumerState<ContentPage> {
   int _lineCount = 1;
   XFile? _selectedImage;
   TextEditingController userInputController = TextEditingController();
@@ -103,7 +104,7 @@ class _ContentPageState extends State<ContentPage> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    final isDark = isDarkMode(context);
+    final isDark = isDarkMode(ref,context);
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: Sizes.size20,

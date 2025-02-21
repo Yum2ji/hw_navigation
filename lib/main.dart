@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hw_navigation/features/darkmodes/repos/dark_playback_config_repo.dart';
 import 'package:hw_navigation/features/darkmodes/view_models/playback_config_vm.dart';
 import 'package:hw_navigation/features/main_navigation/main_navigation_screen.dart';
@@ -12,7 +13,7 @@ void main() async {
   final preferences = await SharedPreferences.getInstance();
   final repository = DarkPlaybackConfigRepository(preferences);
 
-  runApp(
+/*   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -21,20 +22,31 @@ void main() async {
       ],
       child: const NavigationApp(),
     ),
+  ); */
+
+    runApp(
+       ProviderScope(
+        overrides:[
+          playbackConfigProvider.overrideWith(
+            () => PlaybackConfigViewModel(repository),
+          ),
+        ],
+        child : const NavigationApp(),
+      ),
   );
 }
 
-class NavigationApp extends StatelessWidget {
+class NavigationApp extends ConsumerWidget {
   const NavigationApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       routerConfig: router,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      themeMode: context.watch<PlaybackConfigViewModel>().darkmode
+      themeMode: ref.watch(playbackConfigProvider).darkmode
           ? ThemeMode.dark
           : ThemeMode.light,
       theme: ThemeData(
